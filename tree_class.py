@@ -62,3 +62,7 @@ class TreeStore:
             return _parents
         except Exception as err:
             print(err)
+
+
+if __name__ == '__main__':
+    print("Go to endpoint")
