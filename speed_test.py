@@ -1,7 +1,19 @@
 import timeit
 
 
-code_to_test = """
+def get_code(items: list = None):
+    if items is None:
+        items = [
+            {"id": 1, "parent": "root"},
+            {"id": 2, "parent": 1, "type": "test"},
+            {"id": 3, "parent": 1, "type": "test"},
+            {"id": 4, "parent": 2, "type": "test"},
+            {"id": 5, "parent": 2, "type": "test"},
+            {"id": 6, "parent": 2, "type": "test"},
+            {"id": 7, "parent": 4, "type": None},
+            {"id": 8, "parent": 4, "type": None}
+        ]
+    return f"""
 from sys import setrecursionlimit
 
 
@@ -68,22 +80,16 @@ class TreeStore:
             print(err)
 
 
-items = [
-    {"id": 1, "parent": "root"},
-    {"id": 2, "parent": 1, "type": "test"},
-    {"id": 3, "parent": 1, "type": "test"},
-    {"id": 4, "parent": 2, "type": "test"},
-    {"id": 5, "parent": 2, "type": "test"},
-    {"id": 6, "parent": 2, "type": "test"},
-    {"id": 7, "parent": 4, "type": None},
-    {"id": 8, "parent": 4, "type": None}
-]
-
-ts = TreeStore(items)
+ts = TreeStore({items})
 ts.get_all_parents(7)
 """
 
-# оценим время выполнения по функции get_all_parents(7) при 100 000 итераций
-iterations_number = 100000
-print(f'Время выполнения метода get_all_parents в среднем на {iterations_number} итераций: '
-      f'{timeit.timeit(code_to_test, number=iterations_number)} секунд')
+
+def main(iterations_number: int = 100000, code: str = get_code()):
+    # оценим время выполнения по функции get_all_parents(7) при 100 000 итераций
+    return f'Время выполнения метода get_all_parents в среднем на {iterations_number} ' \
+           f'итераций: {timeit.timeit(code, number=iterations_number) / iterations_number} секунд'
+
+
+if __name__ == '__main__':
+    print(main())
