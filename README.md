@@ -5,3 +5,6 @@
 endpoint в модуле enpoint.py
 
 Для запуска проекта нужно установить зависимости
+```bash
+pip install -r requirements.txt
+```
